@@ -65,7 +65,8 @@
             </tr>
           </tbody>
         </table>
-        <pagination :page="page"></pagination>
+        <pagination :pages="page"
+        :get-all-products="getAllProducts"></pagination>
         <!-- Modal -->
         <div
           id="productModal"
