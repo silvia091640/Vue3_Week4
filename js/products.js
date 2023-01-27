@@ -24,7 +24,6 @@ const app=createApp({
         getAllProducts(page=1){
             axios.get(`${apiUrl}/api/${path}/admin/products/?page=${page}`)
             .then((res)=>{
-                console.log(res.data)
                 this.page=res.data.pagination;
                 this.products=res.data.products;
                 
@@ -85,8 +84,6 @@ const app=createApp({
           })
         },
         openModal(type,item){ 
-            alert(type);
-            // console.log(item)
             this.isNew=type==='create' ? true : false;
             if (type==='edit'){
                 this.tempProduct={...item};
@@ -94,12 +91,11 @@ const app=createApp({
             }
             else
             {
-                productModal.show();
-                alert("OK")
+               
                 this.tempProduct={ imagesUrl: []};
                 // console.log(this.tempProduct)
             }
-            
+            productModal.show();
             
         },
         openDeleteModal(item){
@@ -127,28 +123,18 @@ const app=createApp({
     },
 })
 
-// app.component("vue-header", {
-//     template: "#template"
-// })
-// app.component("product-modal",{ 
-//     // props:["img"],
-//     template: "<head></head>",
-    
-
-// });
-
-// app.component("del-product-modal",{ 
-//     template: "#delProductModalTemplate",
-//     props:["tempProduct"],
-
-// });
 
 app.component("product-modal", {
-    props: ["tempProduct"],
-    // template-product-modal有中間橫槓會出現錯誤
+    props: ["tempProduct","saveProduct","isNew"],
     template: "#product-modal-template",
   });
 
+  
+app.component("del-product-modal",{ 
+    template: "#delProduct-modal-template",
+    props:["tempProduct","deleteProduct"],
+
+});
 app.mount("#app");
 
 

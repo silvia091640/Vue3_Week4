@@ -4,22 +4,22 @@ export default  {
     <ul class="pagination">
       <li class="page-item"
       :class="{ disabled : !pages.has_pre }" >
-        <a class="page-link" href="#" aria-label="Previous">
+        <a class="page-link" href="#" aria-label="Previous"
+        @click.prevent="getAllProducts(pages.current_page -1 )">
           <span aria-hidden="true">&laquo;</span>
-          <span class="sr-only">Previous</span>
         </a>
       </li>
       <li class="page-item"      
       :class="{ active : page===pages.current_page }"
       v-for="page in pages.total_pages" :key="page + 'page'">
       <a class="page-link" href="#"
-      @click="getAllProducts(page)">{{ page }}</a>
+      @click.prevent="getAllProducts(page)">{{ page }}</a>
       </li>
       <li class="page-item"
       :class="{ disabled : !pages.has_next }" >
-        <a class="page-link" href="#" aria-label="Next">
+        <a class="page-link" href="#" aria-label="Next"
+          @click.prevent="getAllProducts(pages.current_page + 1)">
           <span aria-hidden="true">&raquo;</span>
-          <span class="sr-only">Next</span>
         </a>
       </li>
     </ul>
