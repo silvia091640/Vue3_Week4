@@ -1,5 +1,7 @@
 import { createApp } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
-  
+
+import pagination from './pagination.js';
+
 const apiUrl="https://vue3-course-api.hexschool.io/v2";
 
 const path="silvia-hexschool";
@@ -14,13 +16,16 @@ const app=createApp({
         return {
             tempProduct:{},
             products:[],
-            isNew: false
+            isNew: false,
+            page:{}
         }
     },
     methods: {
-        getAllProducts(){
-            axios.get(`${apiUrl}/api/${path}/admin/products/all`)
+        getAllProducts(page=1){
+            axios.get(`${apiUrl}/api/${path}/admin/products/?page=${page}`)
             .then((res)=>{
+                console.log(res.data)
+                this.page=res.data.pagination;
                 this.products=res.data.products;
                 
             })
@@ -103,6 +108,9 @@ const app=createApp({
         }
        
     },
+    components:{
+        pagination,
+    },
     mounted() {
       const token= document.cookie.replace(/(?:(?:^|.*;\s*)hexschoolToken\s*\=\s*([^;]*).*$)|^.*$/, "$1");
 
@@ -136,7 +144,7 @@ const app=createApp({
 // });
 
 app.component("product-modal", {
-    props: ["isNew","tempProduct"],
+    props: ["tempProduct"],
     // template-product-modal有中間橫槓會出現錯誤
     template: "#product-modal-template",
   });
